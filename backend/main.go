@@ -25,5 +25,13 @@ func main() {
   router.PUT("/api/items/update/:id", controllers.ItemUpdate)
   router.DELETE("/api/items/delete/:id", controllers.ItemDelete)
 
+  router.GET("/api/billitems", controllers.BillItemGetAll)
+  router.POST("/api/billitems/create", controllers.BillItemCreate)
+  router.PUT("/api/billitems/update/:id", controllers.BillItemUpdate)
+  router.DELETE("/api/billitems/delete/:id", controllers.BillItemDelete)
+
+  router.GET("/api/bills", controllers.BillGetAll)
+  router.POST("/api/bills/create", controllers.BillCreate)
+
   router.Run()
 }

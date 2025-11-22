@@ -1,11 +1,11 @@
 package models
 
 type BillItem struct {
-	ID     uint `gorm:"primaryKey"`
-	BillID uint	
-	Bill Bill `gorm:"foreignKey:BillID"`
-	ItemID uint
-	Item Item `gorm:"foreignKey:ItemID"`
-	Quantity int `gorm:"not null"`
-	SubTotal float64 `gorm:"not null"`
+	ID       uint    `gorm:"primaryKey" json:"id"`
+	BillID   uint    `json:"bill_id"`
+	Bill     Bill    `json:"bill"`
+	ItemID   uint    `json:"item_id"`
+	Item     Item    `json:"item"`
+	Quantity int     `json:"quantity"`
+	SubTotal float64 `json:"sub_total"`
 }
