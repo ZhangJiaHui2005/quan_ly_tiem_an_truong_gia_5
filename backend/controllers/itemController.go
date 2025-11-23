@@ -11,7 +11,7 @@ import (
 func ItemGetAll(ctx *gin.Context) {
 	var items []models.Item
 
-	initializers.DB.Find(&items)
+	initializers.DB.Preload("Category").Find(&items)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"items": items,
@@ -33,16 +33,16 @@ func ItemsCreate(ctx *gin.Context) {
 	}
 
 	var category models.Category
-    if err := initializers.DB.First(&category, body.CategoryID).Error; err != nil {
-        ctx.JSON(http.StatusBadRequest, gin.H{
-            "error": "CategoryID not found",
-        })
-        return
-    }
+	if err := initializers.DB.First(&category, body.CategoryID).Error; err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "CategoryID not found",
+		})
+		return
+	}
 
 	item := models.Item{
-		Name: body.Name,
-		Price: body.Price,
+		Name:       body.Name,
+		Price:      body.Price,
 		CategoryID: body.CategoryID,
 	}
 
@@ -84,8 +84,8 @@ func ItemUpdate(ctx *gin.Context) {
 	}
 
 	err := initializers.DB.Model(&item).Updates(&models.Item{
-		Name: body.Name,
-		Price: body.Price,
+		Name:       body.Name,
+		Price:      body.Price,
 		CategoryID: body.CategoryID,
 	})
 
